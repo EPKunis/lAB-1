@@ -8,8 +8,12 @@ class cMain : public wxFrame
 		~cMain();
 
 public:
-	wxButton* button1 = nullptr;
-	wxTextCtrl* text = nullptr;
-	wxListBox* box = nullptr;
+	int nFieldWidth = 10;
+	int nFieldHeight = 10;
+	wxButton** btn;
+
+	void OnButtonClicked(wxCommandEvent& evt);
+
+	wxDECLARE_EVENT_TABLE();
 };
 
