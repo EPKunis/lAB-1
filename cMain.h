@@ -8,12 +8,12 @@ class cMain : public wxFrame
 		~cMain();
 
 public:
-	int nFieldWidth = 10;
-	int nFieldHeight = 10;
-	wxButton** btn;
+	
+	wxButton* btn = nullptr;
+	wxTextCtrl* txt = nullptr;
 
 	int* nField = nullptr;
-	bool bFirstClick = true;
+	bool FirstClick = true;
 
 
 	void OnButtonClicked(wxCommandEvent& evt);

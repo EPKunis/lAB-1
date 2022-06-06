@@ -12,8 +12,8 @@ Widget::~Widget()
 
 bool Widget::OnInit()
 {
-	m_frame1 = new cMain;
-	m_frame1->Show();
+	frame = new cMain;
+	frame->Show();
 
 	return true;
 }

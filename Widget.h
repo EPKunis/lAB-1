@@ -10,7 +10,7 @@ public:
 
 
 private:
-	cMain* m_frame1 = nullptr;
+	cMain* frame = nullptr;
 
 public:
 	virtual bool OnInit();

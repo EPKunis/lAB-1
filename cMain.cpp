@@ -6,28 +6,32 @@ EVT_BUTTON(10001, OnButtonClicked)
 
 wxEND_EVENT_TABLE()
 
-cMain::cMain() : wxFrame(nullptr, wxID_ANY, "LAB 1 MIN SWEAPER", wxPoint(30,30), wxSize(800, 600))
+//POINT messes with the position
+//SIZE messes w this size
+cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(30,30), wxSize(800, 600))
 {
-	btn = new wxButton * [nFieldWidth *  nFieldHeight];
-	wxGridSizer* grid = new wxGridSizer(nFieldHeight, nFieldWidth, 0, 0);
+	txt = new wxTextCtrl(this, wxID_ANY,"", wxPoint(10, 10), wxSize(200,100));
 
-	nField = new int[nFieldWidth * nFieldHeight];
-
-	for (int x = 0; x < nFieldWidth; x++)
-	{
-		for (int y = 0; y < nFieldHeight; y++)
-		{
-			btn[y * nFieldWidth + x] = new wxButton(this, 10000 + (y * nFieldWidth + x));
-			grid->Add(btn[y * nFieldWidth + x], 1, wxEXPAND | wxALL);
-
-			btn[y * nFieldWidth + x]->Bind(wxEVT_COMMAND_BUTTON_CLICKED, &cMain::OnButtonClicked, this);
-
-			nField[y * nFieldWidth + x] = 0;
-		}
-	}
-
-	this->SetSizer(grid);
-	grid->Layout();
+	btn = new wxButton(this, 1, "1", wxPoint(10, 140), wxSize(50, 50));
+	btn = new wxButton(this, 2, "2", wxPoint(60, 140), wxSize(50, 50));
+	btn = new wxButton(this, 3, "3", wxPoint(110, 140), wxSize(50, 50));
+	btn = new wxButton(this, 4, "4", wxPoint(10, 200), wxSize(50, 50));
+	btn = new wxButton(this, 5, "5", wxPoint(60, 200), wxSize(50, 50));
+	btn = new wxButton(this, 6, "6", wxPoint(110, 200), wxSize(50, 50));
+	btn = new wxButton(this, 7, "7", wxPoint(10, 260), wxSize(50, 50));
+	btn = new wxButton(this, 8, "8", wxPoint(60, 260), wxSize(50, 50));
+	btn = new wxButton(this, 9, "9", wxPoint(110, 260), wxSize(50, 50));
+	btn = new wxButton(this, 10, "0", wxPoint(10, 320), wxSize(50, 50));
+	btn = new wxButton(this, 11, "+", wxPoint(60, 320), wxSize(50, 50));
+	btn = new wxButton(this, 12, "-", wxPoint(110, 320), wxSize(50, 50));
+	btn = new wxButton(this, 13, "=", wxPoint(10, 380), wxSize(50, 50));
+	btn = new wxButton(this, 14, "C", wxPoint(60, 380), wxSize(50, 50));
+	btn = new wxButton(this, 15, "MOD", wxPoint(110, 380), wxSize(50, 50));
+	btn = new wxButton(this, 16, "/", wxPoint(10, 440), wxSize(50, 50));
+	btn = new wxButton(this, 17, "BIN", wxPoint(60, 440), wxSize(50, 50));
+	btn = new wxButton(this, 18, "HEX", wxPoint(110, 440), wxSize(50, 50));
+	btn = new wxButton(this, 19, "DEC", wxPoint(10, 500), wxSize(50, 50));
+	btn = new wxButton(this, 20, "*", wxPoint(60, 500), wxSize(50, 50));
 }
 
 cMain::~cMain()
@@ -36,69 +40,5 @@ cMain::~cMain()
 
 void cMain::OnButtonClicked(wxCommandEvent& evt)
 {
-	
-	int x = (evt.GetId() - 10000) % nFieldWidth;
-	int y = (evt.GetId() - 10000) / nFieldWidth;
 
-	if (bFirstClick)
-	{
-		int mines = 30;
-
-		while (mines)
-		{
-			int mine_x = rand() % nFieldWidth;
-			int mine_y = rand() % nFieldHeight;
-
-			if (nField[mine_y * nFieldWidth + mine_x] == 0 && mine_x != x && mine_y != y)
-			{
-				nField[mine_y * nFieldWidth + mine_x] = -1;
-				mines--;
-			}
-		}
-
-		bFirstClick = false;
-	}
-
-	btn[y * nFieldWidth + x]->Enable(false);
-
-	if (nField[y*nFieldWidth + x] == -1)
-	{
-		wxMessageBox("KKKKKAAAAAAAAAA BBOOOOOOOOOOOOM - GAME OVER");
-
-		bFirstClick = true;
-		for (int x = 0; x < nFieldWidth; x++)
-		{
-			for (int y = 0; y < nFieldHeight; y++)
-			{
-				nField[y * nFieldWidth + x] = 0;
-				btn[y * nFieldWidth + x]->SetLabel("");
-				btn[y * nFieldWidth + x]->Enable(true);
-			}
-		}
-	}
-	else
-	{
-		int mine_count = 0;
-		for (int j = -1; j < 2; j++)
-		{
-			for (int k = -1; k < 2; k++)
-			{
-				if (x + j >= 0 && x + j < nFieldWidth && y + k >= 0 && y + k < nFieldHeight)
-				{
-					if (nField[(y + k)*nFieldWidth + (x + j)] == -1)
-					
-						mine_count++;
-					
-
-				}
-			}
-		}
-
-		if (mine_count > 0)
-		{
-			btn[y * nFieldWidth + x]->SetLabel(std::to_string(mine_count));
-		}
-	}
-
-	evt.Skip();
 }
